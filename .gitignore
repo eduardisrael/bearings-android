@@ -1,0 +1,18 @@
+# Android / Gradle
+*.iml
+.gradle/
+.kotlin/
+local.properties
+build/
+.idea/
+*.keystore
+*.jks
+*.hprof
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — NEVER commit API keys or OAuth credentials
+local.properties
+google-services.json
