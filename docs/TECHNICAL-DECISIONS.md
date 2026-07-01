@@ -103,15 +103,16 @@ independently verified correct via direct `adb shell input` injection, which exe
 the exact same `advance()`/`goBack()` code the touchpad would trigger. The demo recording
 was driven this way — visually and behaviorally identical to a real swipe.
 
-### 6. The virtual display ID is not stable across sessions
+### 6. The virtual display ID — and even the emulator serial — are not stable across sessions
 
 The `ProjectionDisplayRestricted` display's numeric ID changes across emulator restarts
-(observed 5, then 15, then 17, then 19...). Any launch script must re-detect it each
-session:
-
-```bash
-adb shell dumpsys display | grep -oE "displayId=[0-9]+, uniqueId='virtual:[^']*ProjectionDisplayRestricted[^']*'" | grep -oE "displayId=[0-9]+" | grep -oE "[0-9]+"
-```
+(observed 5, then 15, then 17, then 19...), and which `adb` serial (`emulator-5554` /
+`emulator-5556`) is the phone versus the glasses also isn't fixed — it depends on launch
+order and can swap between sessions. `scripts/run-on-glasses.sh` handles both: it
+iterates connected devices, inspects each one's `dumpsys display` output to find which
+serial actually hosts a `ProjectionDisplayRestricted` display, and extracts that
+display's id from the same output — so it works regardless of how the emulators are
+currently assigned.
 
 ## What was not built (explicitly out of scope today)
 

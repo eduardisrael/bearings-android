@@ -35,17 +35,19 @@ repository interfaces the real implementations will use.
 
 Requires **Android Studio Canary** (the Jetpack XR SDK tooling isn't in the stable
 channel yet) with a **Display Glasses** AVD and a phone AVD to host it, paired via the
-Glasses Pairing Assistant. See `docs/TECHNICAL-DECISIONS.md` for the exact setup and the
-launch gotcha (Android Studio's Run button targets the phone display by default, which the
-system rejects for this glasses-only activity — launch via adb targeting the detected
-`ProjectionDisplayRestricted` display id instead).
+Glasses Pairing Assistant.
+
+**⚠️ Do not use Android Studio's Run/Play button** — it launches on the phone's own
+screen (display 0), which the system rejects for this glasses-only activity. Once both
+emulators are running and paired, use the provided script instead:
 
 ```bash
-./gradlew assembleDebug
-adb -s <phone-emulator> install -r app/build/outputs/apk/debug/app-debug.apk
-adb -s <phone-emulator> shell dumpsys display | grep ProjectionDisplayRestricted   # find the display id
-adb -s <phone-emulator> shell am start -n com.bearings/.GlassesActivity --display <id>
+./scripts/run-on-glasses.sh
 ```
+
+This builds, installs, and launches the app on the correct projected glasses display,
+auto-detecting it each session (the display's id is not stable across emulator
+restarts). See `docs/TECHNICAL-DECISIONS.md` for why this is necessary.
 
 ## Project structure
 
