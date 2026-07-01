@@ -9,7 +9,7 @@ Full product pitch and technical decision record: see [`docs/TECHNICAL-DECISIONS
 
 ## Demo
 
-![Bearings demo — five-card navigation on the projected AI Glasses display](docs/assets/demo-preview.gif)
+<img src="docs/assets/demo-preview.gif" alt="Bearings demo — five-card navigation on the projected AI Glasses display" width="600">
 
 Full-quality video with audio: [`docs/assets/Bearings_Demo.mp4`](docs/assets/Bearings_Demo.mp4)
 
